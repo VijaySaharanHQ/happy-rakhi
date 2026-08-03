@@ -17,9 +17,14 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: #090a0f;
-            /* Starry deep night gradient */
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            
+            /* --- NEW BACKGROUND IMAGE ADDED HERE --- */
+            /* The linear-gradient adds a dark tint so your card stays readable! */
+            background-image: linear-gradient(rgba(10, 10, 20, 0.75), rgba(10, 10, 20, 0.75)), url('bg-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
@@ -63,7 +68,7 @@
             100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
         }
 
-        /* 3. Glowing Orbs Background */
+        /* 3. Glowing Orbs Background (Still kept for magic effect!) */
         .bg-orb {
             position: absolute;
             border-radius: 50%;
@@ -85,7 +90,7 @@
             position: absolute;
             top: -50px;
             background: #ffa500;
-            border-radius: 15px 0 15px 0; /* Looks like a flower petal */
+            border-radius: 15px 0 15px 0; 
             box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
             opacity: 0.8;
             z-index: 5;
@@ -134,15 +139,15 @@
             display: none; 
             width: 90%;
             max-width: 520px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.15); /* Slightly brighter glass for images */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 215, 0, 0.3); /* Golden delicate border */
+            border: 1px solid rgba(255, 215, 0, 0.4); 
             border-radius: 25px;
             padding: 45px 35px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.2);
             transition: transform 0.15s ease-out; 
             transform-style: preserve-3d;
         }
@@ -186,7 +191,6 @@
             font-family: 'Great Vibes', cursive;
             font-size: 4rem;
             margin: 0 0 5px 0;
-            /* Liquid Gold Shining Effect */
             background: linear-gradient(90deg, #FFD700, #FFF8DC, #FF8C00, #FFD700);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -234,15 +238,14 @@
 <body>
 
     <!-- Hidden Background Audio (Starts on Click) -->
-    <!-- You can upload a song named music.mp3 to GitHub! -->
     <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Glowing Orbs -->
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
+    <!-- Glowing Orbs (They will float nicely over your background image) -->
+    <div class=<img src="pic7.jpg" alt="Memory">></div>
+    <div class=<img src="pic1.jpg" alt="Memory">></div>
+    <div class=<img src="pic5.jpg" alt="Memory">></div>
 
     <!-- Container for Petals -->
     <div id="petals-container"></div>
@@ -263,7 +266,7 @@
         <div class="gallery-wrapper">
             <div class="slider-track">
                 <!-- Replace with your 10-15 images -->
-                <img src="pic1.jpg" alt="Memory">
+            <img src="pic1.jpg" alt="Memory">
                 <img src="pic2.jpg" alt="Memory">
                 <img src="pic3.jpg" alt="Memory">
                 <img src="pic4.jpg" alt="Memory">
@@ -292,13 +295,11 @@
         let lastSparkleTime = 0;
 
         document.addEventListener('mousemove', (e) => {
-            // Move the Rakhi
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
             
-            // Create a sparkle trail (throttle to avoid too many elements)
             const now = Date.now();
-            if (now - lastSparkleTime > 30) { // spawn sparkle every 30ms
+            if (now - lastSparkleTime > 30) {
                 createSparkle(e.clientX, e.clientY);
                 lastSparkleTime = now;
             }
@@ -307,24 +308,20 @@
         function createSparkle(x, y) {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
-            // Slight random scatter for the fairy dust effect
             const offsetX = (Math.random() - 0.5) * 20;
             const offsetY = (Math.random() - 0.5) * 20;
             
             sparkle.style.left = (x + offsetX) + 'px';
             sparkle.style.top = (y + offsetY) + 'px';
             
-            // Random colors (Gold to Orange)
             const colors = ['#FFD700', '#FFA500', '#FF8C00', '#FFF8DC'];
             sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
             
             document.body.appendChild(sparkle);
             
-            // Remove after animation completes
             setTimeout(() => { sparkle.remove(); }, 800);
         }
 
-        // Button hover effect
         unwrapBtn.addEventListener('mouseenter', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1.4) rotate(-15deg)';
         });
@@ -365,7 +362,7 @@
                     petal.style.background = colors[Math.floor(Math.random() * colors.length)];
                     petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
                     container.appendChild(petal);
-                }, i * 200); // Stagger the falling
+                }, i * 200);
             }
         }
 
@@ -375,9 +372,8 @@
         let i = 0;
 
         function revealSurprise() {
-            // Play Music
             const music = document.getElementById('bg-music');
-            music.volume = 0.5; // Half volume
+            music.volume = 0.5; 
             music.play().catch(e => console.log("Audio play prevented until interaction"));
 
             const intro = document.getElementById('intro-screen');
@@ -386,7 +382,6 @@
             setTimeout(() => {
                 intro.style.display = 'none';
                 
-                // Show Card
                 card.style.display = 'block';
                 card.animate([
                     { opacity: 0, transform: 'perspective(1200px) translateY(80px) scale(0.8)' },
@@ -397,10 +392,7 @@
                     fill: 'forwards'
                 });
                 
-                // Trigger Festive Elements
                 createPetals();
-                
-                // Start Typing
                 setTimeout(typeWriter, 1200);
             }, 800); 
         }
