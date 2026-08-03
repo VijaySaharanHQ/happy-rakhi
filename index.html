@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Surprise For You! 🎁</title>
+    <title>A Magical Surprise For You! 🎁</title>
     <!-- Premium Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* 1. Global Reset & Hide Default Cursor */
         * {
-            cursor: none !important; /* Hides the default mouse pointer */
+            cursor: none !important; 
             box-sizing: border-box;
         }
 
@@ -17,62 +17,89 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: #0f0c29;
-            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            background: #090a0f;
+            /* Starry deep night gradient */
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
             overflow: hidden;
-            perspective: 1000px; /* Crucial for the 3D card tilt */
+            perspective: 1200px;
         }
 
-        /* 2. Custom Glowing Magic Cursor */
+        /* 2. Custom RAKHI Mouse Cursor */
         .custom-cursor {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            background: #ff416c;
-            border-radius: 50%;
-            pointer-events: none; /* Lets clicks pass through to buttons */
+            top: 0; left: 0;
+            width: 50px; height: 50px;
+            background-image: url('rakhi.png'); /* Upload rakhi.png to GitHub */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none; 
             transform: translate(-50%, -50%);
             z-index: 9999;
-            box-shadow: 0 0 15px #ff416c, 0 0 30px #ff4b2b, 0 0 50px #fff;
-            transition: width 0.2s, height 0.2s, background 0.2s;
-        }
-        
-        .cursor-trail {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(255, 65, 108, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9998;
-            transition: top 0.1s ease-out, left 0.1s ease-out;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+            transition: transform 0.15s ease-out; 
         }
 
-        /* Animated background glowing orbs */
+        /* Magical Sparkle Particle */
+        .sparkle {
+            position: fixed;
+            width: 8px; height: 8px;
+            background: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 15px #ffd700, 0 0 30px #ff8c00;
+            animation: fadeSparkle 0.8s forwards;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes fadeSparkle {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+        }
+
+        /* 3. Glowing Orbs Background */
         .bg-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(90px);
             z-index: 0;
-            animation: floatOrb 10s infinite alternate ease-in-out;
+            animation: floatOrb 12s infinite alternate ease-in-out;
         }
-        .orb-1 { width: 300px; height: 300px; background: #ff416c; top: -50px; left: -50px; }
-        .orb-2 { width: 400px; height: 400px; background: #ff4b2b; bottom: -100px; right: -50px; animation-delay: -5s; }
+        .orb-1 { width: 400px; height: 400px; background: rgba(255, 65, 108, 0.4); top: -100px; left: -100px; }
+        .orb-2 { width: 500px; height: 500px; background: rgba(255, 140, 0, 0.3); bottom: -150px; right: -100px; animation-delay: -6s; }
+        .orb-3 { width: 300px; height: 300px; background: rgba(138, 43, 226, 0.3); top: 40%; left: 40%; animation-delay: -3s; }
 
         @keyframes floatOrb {
             0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.2) translate(30px, -30px); }
+            100% { transform: scale(1.3) translate(40px, -40px); }
         }
 
-        /* 3. The "Unwrap" Screen */
+        /* Falling Petals Effect */
+        .petal {
+            position: absolute;
+            top: -50px;
+            background: #ffa500;
+            border-radius: 15px 0 15px 0; /* Looks like a flower petal */
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+            opacity: 0.8;
+            z-index: 5;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 4. The "Unwrap" Screen */
         #intro-screen {
             position: absolute;
             z-index: 50;
@@ -81,134 +108,147 @@
         }
 
         .unwrap-btn {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
+            background: linear-gradient(45deg, #FFaa00, #FF5500);
+            border: 2px solid #ffd700;
+            padding: 18px 50px;
+            font-size: 1.6rem;
             color: white;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            box-shadow: 0 0 20px rgba(255, 65, 108, 0.6);
+            box-shadow: 0 0 25px rgba(255, 170, 0, 0.6);
             animation: pulseBtn 2s infinite;
             transition: transform 0.3s ease;
         }
 
-        .unwrap-btn:hover {
-            transform: scale(1.1);
-        }
+        .unwrap-btn:hover { transform: scale(1.15); }
 
         @keyframes pulseBtn {
-            0% { box-shadow: 0 0 20px rgba(255, 65, 108, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(255, 65, 108, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(255, 65, 108, 0.4); }
+            0% { box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); }
+            50% { box-shadow: 0 0 45px rgba(255, 170, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); }
         }
 
-        /* 4. The 3D Glassmorphism Card */
+        /* 5. The Premium 3D Glass Card */
         #main-card {
-            display: none; /* Hidden until unwrapped */
+            display: none; 
             width: 90%;
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px 30px;
+            max-width: 520px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.3); /* Golden delicate border */
+            border-radius: 25px;
+            padding: 45px 35px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
-            /* Smooth transition when the mouse leaves the card */
-            transition: transform 0.2s ease-out; 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: transform 0.15s ease-out; 
             transform-style: preserve-3d;
         }
 
-        /* 5. Auto-Sliding Image Gallery */
+        /* 6. Auto-Sliding Image Gallery */
         .gallery-wrapper {
             width: 100%;
-            height: 160px;
+            height: 180px;
             overflow: hidden;
             border-radius: 15px;
             margin-bottom: 25px;
-            /* Fades the edges so photos smoothly enter and exit */
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            /* Pops the gallery out in 3D */
-            transform: translateZ(40px); 
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            transform: translateZ(50px); 
         }
 
         .slider-track {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             width: max-content;
-            /* Slides left, then alternates back to the right seamlessly */
-            animation: slideGallery 25s ease-in-out infinite alternate;
+            animation: slideGallery 35s linear infinite alternate;
         }
 
         .slider-track img {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             object-fit: cover;
             border-radius: 15px;
-            border: 3px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            pointer-events: none; /* Prevents cursor snagging on images */
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+            pointer-events: none; 
         }
 
-        /* Adjust the -1000px based on how many images you use to ensure it scrolls enough */
         @keyframes slideGallery {
             0% { transform: translateX(0); }
             100% { transform: translateX(calc(-100% + 400px)); } 
         }
 
-        /* 6. Text Styling (Popped out in 3D) */
+        /* 7. Typography */
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: #ffd700; 
+            font-size: 4rem;
             margin: 0 0 5px 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            transform: translateZ(50px);
+            /* Liquid Gold Shining Effect */
+            background: linear-gradient(90deg, #FFD700, #FFF8DC, #FF8C00, #FFD700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShine 4s linear infinite;
+            filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.4));
+            transform: translateZ(60px);
+        }
+
+        @keyframes goldShine {
+            to { background-position: 200% center; }
         }
 
         h2 {
             font-weight: 300;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: #e0e0e0;
-            margin-bottom: 25px;
-            transform: translateZ(30px);
+            color: #f0f0f0;
+            margin-bottom: 30px;
+            transform: translateZ(40px);
         }
 
         .typewriter-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: #f1f1f1;
-            min-height: 100px; 
-            margin-bottom: 20px;
-            transform: translateZ(40px);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #fff;
+            min-height: 120px; 
+            margin-bottom: 25px;
+            transform: translateZ(45px);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .signature {
             font-family: 'Great Vibes', cursive;
-            font-size: 2rem;
-            color: #ff416c;
+            font-size: 2.2rem;
+            color: #FF7F50;
             opacity: 0; 
-            transition: opacity 1s ease;
-            transform: translateZ(30px);
+            transition: opacity 1.5s ease;
+            transform: translateZ(35px);
+            text-shadow: 0 0 10px rgba(255, 127, 80, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- The Custom Mouse Cursors -->
-    <div class="custom-cursor" id="cursor"></div>
-    <div class="cursor-trail" id="trail"></div>
+    <!-- Hidden Background Audio (Starts on Click) -->
+    <!-- You can upload a song named music.mp3 to GitHub! -->
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Background Glowing Orbs -->
+    <!-- Glowing Orbs -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- Container for Petals -->
+    <div id="petals-container"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
 
     <!-- Screen 1: The Intro Button -->
     <div id="intro-screen">
@@ -220,10 +260,9 @@
         <h1>Happy Rakhi</h1>
         <h2>Shambhavi</h2>
         
-        <!-- The Left-to-Right Image Slider -->
         <div class="gallery-wrapper">
             <div class="slider-track">
-                <!-- Replace these with your actual image filenames. You can add or remove <img> lines as needed! -->
+                <!-- Replace with your 10-15 images -->
                 <img src="pic1.jpg" alt="Memory">
                 <img src="pic2.jpg" alt="Memory">
                 <img src="pic3.jpg" alt="Memory">
@@ -233,7 +272,7 @@
                 <img src="pic7.jpg" alt="Memory">
                 <img src="pic8.jpg" alt="Memory">
                 <img src="pic9.jpg" alt="Memory">
-                <img src="pici10.jpg" alt="Memory">
+                <img src="pic10.jpg" alt="Memory">
                 <img src="pic11.jpg" alt="Memory">
                 <img src="pic12.jpg" alt="Memory">
                 <img src="pic13.jpg" alt="Memory">
@@ -242,89 +281,127 @@
             </div>
         </div>
         
-        <!-- The message will automatically type itself here -->
         <div class="typewriter-text" id="message"></div>
-        
         <div class="signature" id="signature">Love, Vijay ❤️</div>
     </div>
 
-    <!-- JavaScript for Cursors, 3D Hover, and Typewriter -->
     <script>
-        // --- 1. Custom Mouse Cursor Logic ---
+        // --- 1. Magical Sparkle Cursor Logic ---
         const cursor = document.getElementById('cursor');
-        const trail = document.getElementById('trail');
         const unwrapBtn = document.getElementById('unwrap-btn');
+        let lastSparkleTime = 0;
 
         document.addEventListener('mousemove', (e) => {
+            // Move the Rakhi
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
             
-            // Trail follows with a slight delay
-            setTimeout(() => {
-                trail.style.left = e.clientX + 'px';
-                trail.style.top = e.clientY + 'px';
-            }, 50);
+            // Create a sparkle trail (throttle to avoid too many elements)
+            const now = Date.now();
+            if (now - lastSparkleTime > 30) { // spawn sparkle every 30ms
+                createSparkle(e.clientX, e.clientY);
+                lastSparkleTime = now;
+            }
         });
 
-        // Make the cursor pulse when hovering over the unwrap button
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            // Slight random scatter for the fairy dust effect
+            const offsetX = (Math.random() - 0.5) * 20;
+            const offsetY = (Math.random() - 0.5) * 20;
+            
+            sparkle.style.left = (x + offsetX) + 'px';
+            sparkle.style.top = (y + offsetY) + 'px';
+            
+            // Random colors (Gold to Orange)
+            const colors = ['#FFD700', '#FFA500', '#FF8C00', '#FFF8DC'];
+            sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(sparkle);
+            
+            // Remove after animation completes
+            setTimeout(() => { sparkle.remove(); }, 800);
+        }
+
+        // Button hover effect
         unwrapBtn.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-            cursor.style.background = '#f9d423';
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.4) rotate(-15deg)';
         });
         unwrapBtn.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursor.style.background = '#ff416c';
+            cursor.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
         });
-
 
         // --- 2. 3D Card Hover Effect ---
         const card = document.getElementById('main-card');
 
         card.addEventListener('mousemove', (e) => {
-            // Calculate mouse position relative to the center of the card
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
 
-            // Calculate rotation amounts (divide by a number to soften the effect)
-            const rotateX = -y / 15; 
-            const rotateY = x / 15;
+            const rotateX = -y / 20; 
+            const rotateY = x / 20;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
 
-        // Snap back to flat when mouse leaves the card
         card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg)`;
         });
 
+        // --- 3. Falling Petals Generator ---
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            const colors = ['#FFa500', '#FF8c00', '#FFd700'];
+            
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + 'vw';
+                    petal.style.width = (Math.random() * 10 + 10) + 'px';
+                    petal.style.height = (Math.random() * 10 + 10) + 'px';
+                    petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    container.appendChild(petal);
+                }, i * 200); // Stagger the falling
+            }
+        }
 
-        // --- 3. Reveal and Typewriter Logic ---
+        // --- 4. Reveal, Music & Typewriter Logic ---
         const textToType = "Thank you for being my built-in best friend, my protector, and the most annoying person I love. I coded this just for you today. You mean the world to me!";
         const speed = 50; 
         let i = 0;
 
         function revealSurprise() {
+            // Play Music
+            const music = document.getElementById('bg-music');
+            music.volume = 0.5; // Half volume
+            music.play().catch(e => console.log("Audio play prevented until interaction"));
+
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             
             setTimeout(() => {
                 intro.style.display = 'none';
                 
-                // Show card
+                // Show Card
                 card.style.display = 'block';
-                // Trigger a fade/slide up animation
                 card.animate([
-                    { opacity: 0, transform: 'perspective(1000px) translateY(50px) scale(0.9)' },
-                    { opacity: 1, transform: 'perspective(1000px) translateY(0) scale(1)' }
+                    { opacity: 0, transform: 'perspective(1200px) translateY(80px) scale(0.8)' },
+                    { opacity: 1, transform: 'perspective(1200px) translateY(0) scale(1)' }
                 ], {
-                    duration: 1200,
-                    easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    duration: 1500,
+                    easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
                     fill: 'forwards'
                 });
                 
-                // Start typing
-                setTimeout(typeWriter, 1000);
+                // Trigger Festive Elements
+                createPetals();
+                
+                // Start Typing
+                setTimeout(typeWriter, 1200);
             }, 800); 
         }
 
