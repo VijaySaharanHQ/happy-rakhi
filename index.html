@@ -3,67 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Raksha Bandhan!</title>
+    <title>Happy Raksha Bandhan, Shambhavi 💖</title>
+    <!-- Modern Festive Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
+        /* 1. Global Page Styling & Background */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fff6e5;
-            color: #333;
-            text-align: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Needed for confetti effect */
+            /* A glowing festive gradient background */
+            background: linear-gradient(-45deg, #FF9A9E, #FAD0C4, #fad0c4, #FFD1FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 2. Main Card Container Styling */
         .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-top: 8px solid #ff6b6b;
+            width: 90%;
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+            padding: 40px;
+            border-radius: 30px;
+            /* Subtly glowing shadow */
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3), 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #fff;
+            text-align: center;
+            position: relative; /* Needed for confetti stacking */
+            z-index: 10;
+            /* Entrance animation for the whole card */
+            animation: fadeInUp 1s ease-out;
         }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 3. Heading & Text Styling */
         h1 {
-            color: #e63946;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-family: 'Pacifico', cursive;
+            color: #E63946; /* Rakhi Red */
+            font-size: 3em;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(230, 57, 70, 0.2);
         }
+
+        h2 {
+            font-weight: 300;
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        /* 4. The "Spinning" Photo Styling */
         .photo {
-            width: 250px;
-            height: 250px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 20px 0;
-            border: 5px solid #f4a261;
-            box-shadow: 0 5px 15px rgba(244, 162, 97, 0.4);
+            border: 8px solid #FFD166; /* Golden border */
+            box-shadow: 0 8px 20px rgba(255, 209, 102, 0.5);
+            
+            /* The Magic Spin Entrance Animation! */
+            animation: spinEntrance 1.5s ease-out forwards;
         }
+
+        @keyframes spinEntrance {
+            0% { transform: scale(0.1) rotate(0deg); opacity: 0; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        /* 5. Message & Signature Styling */
         p.message {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #555;
-            margin: 20px 20px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+            margin: 30px 10px;
         }
-        .signature {
-            margin-top: 30px;
-            font-weight: bold;
+
+        .heart {
+            color: #e63946;
             font-size: 1.3em;
-            color: #e76f51;
+        }
+
+        .signature {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8em;
+            color: #FF6B6B;
+            margin-top: 20px;
+        }
+
+        /* 6. Confetti styling (Managed by JS below) */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffd166;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    
+    <!-- 7. Confetti Elements (Created via JavaScript) -->
+    <div id="confetti-container"></div>
+
     <div class="container">
-        <h1>Happy Raksha Bandhan! 💖</h1>
+        <h1>Happy Rakhi! ✨💖</h1>
+        <h2>To my favorite sister, [Shambhavi]!</h2>
         
-        <!-- You can replace this link with a URL to a real photo of you two! -->
-        <img class="photo" src="pic3.jpg" alt="Beautiful Rakhi">
+        <!-- *** YOUR IMAGE PLACEHOLDER BELOW! *** -->
+        <img class="photo" src="pic3.jpg" alt="Me and my sister">
         
         <p class="message">
-            To the world's most amazing sister, <br><br>
-            Thank you for always being my built-in best friend, my partner in crime, and my biggest supporter. Even though we fight sometimes, I wouldn't trade you for anything! <br><br>
-            I coded this little website just for you. I hope it brings a big smile to your face today.
+            I coded this special surprise just for you to say thank you for being the most supportive, annoying, and wonderful sister in the world. Even though we are on GitHub right now, know that my best wishes are with you always! 👫<span class="heart">❤</span>
         </p>
         
-        <p class="signature">With lots of love,<br>Vijay</p>
+        <p class="signature">Love, Vijay</p>
     </div>
+
+    <!-- 8. Simple JavaScript to create the falling confetti effect -->
+    <script>
+        const container = document.getElementById('confetti-container');
+        const colors = ['#FF6B6B', '#FFD166', '#4ECDC4', '#FFFFFF', '#FFD1FF'];
+
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Randomize properties
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's'; // 2-5s fall time
+            confetti.style.opacity = Math.random();
+            confetti.style.width = confetti.style.height = (Math.random() * 8 + 4) + 'px'; // Size 4-12px
+
+            container.appendChild(confetti);
+        }
+    </script>
 </body>
 </html>
