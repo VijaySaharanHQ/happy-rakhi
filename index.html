@@ -7,12 +7,17 @@
     <!-- Premium Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* 1. Deep Animated Background */
+        /* 1. Global Reset & Hide Default Cursor */
+        * {
+            cursor: none !important; /* Hides the default mouse pointer */
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: #0f0c29; /* Deep space dark */
+            background: #0f0c29;
             background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
             font-family: 'Poppins', sans-serif;
             display: flex;
@@ -20,6 +25,35 @@
             align-items: center;
             color: #fff;
             overflow: hidden;
+            perspective: 1000px; /* Crucial for the 3D card tilt */
+        }
+
+        /* 2. Custom Glowing Magic Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: #ff416c;
+            border-radius: 50%;
+            pointer-events: none; /* Lets clicks pass through to buttons */
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            box-shadow: 0 0 15px #ff416c, 0 0 30px #ff4b2b, 0 0 50px #fff;
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 65, 108, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            transition: top 0.1s ease-out, left 0.1s ease-out;
         }
 
         /* Animated background glowing orbs */
@@ -32,14 +66,13 @@
         }
         .orb-1 { width: 300px; height: 300px; background: #ff416c; top: -50px; left: -50px; }
         .orb-2 { width: 400px; height: 400px; background: #ff4b2b; bottom: -100px; right: -50px; animation-delay: -5s; }
-        .orb-3 { width: 250px; height: 250px; background: #f9d423; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.5;}
 
         @keyframes floatOrb {
             0% { transform: scale(1) translate(0, 0); }
             100% { transform: scale(1.2) translate(30px, -30px); }
         }
 
-        /* 2. The "Unwrap" Screen */
+        /* 3. The "Unwrap" Screen */
         #intro-screen {
             position: absolute;
             z-index: 50;
@@ -54,7 +87,6 @@
             font-size: 1.5rem;
             color: white;
             border-radius: 50px;
-            cursor: pointer;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             box-shadow: 0 0 20px rgba(255, 65, 108, 0.6);
@@ -72,11 +104,11 @@
             100% { box-shadow: 0 0 20px rgba(255, 65, 108, 0.4); }
         }
 
-        /* 3. The Glassmorphism Card (Hidden initially) */
+        /* 4. The 3D Glassmorphism Card */
         #main-card {
-            display: none;
+            display: none; /* Hidden until unwrapped */
             width: 90%;
-            max-width: 450px;
+            max-width: 500px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -85,28 +117,58 @@
             padding: 40px 30px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transform: translateY(50px) scale(0.9);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            /* Smooth transition when the mouse leaves the card */
+            transition: transform 0.2s ease-out; 
+            transform-style: preserve-3d;
         }
 
-        /* Reveal Animation for the card */
-        .show-card {
-            display: block !important;
-            animation: revealCard 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* 5. Auto-Sliding Image Gallery */
+        .gallery-wrapper {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            /* Fades the edges so photos smoothly enter and exit */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            /* Pops the gallery out in 3D */
+            transform: translateZ(40px); 
         }
 
-        @keyframes revealCard {
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .slider-track {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            /* Slides left, then alternates back to the right seamlessly */
+            animation: slideGallery 25s ease-in-out infinite alternate;
         }
 
-        /* 4. Card Content Styling */
+        .slider-track img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            pointer-events: none; /* Prevents cursor snagging on images */
+        }
+
+        /* Adjust the -1000px based on how many images you use to ensure it scrolls enough */
+        @keyframes slideGallery {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-100% + 400px)); } 
+        }
+
+        /* 6. Text Styling (Popped out in 3D) */
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 3.5rem;
-            color: #ffd700; /* Gold */
+            color: #ffd700; 
             margin: 0 0 5px 0;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transform: translateZ(50px);
         }
 
         h2 {
@@ -116,100 +178,154 @@
             text-transform: uppercase;
             color: #e0e0e0;
             margin-bottom: 25px;
-        }
-
-        .photo-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 25px auto;
-        }
-
-        .photo {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-            /* Smooth floating animation */
-            animation: floatImage 4s ease-in-out infinite;
-        }
-
-        @keyframes floatImage {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); box-shadow: 0 15px 30px rgba(255, 255, 255, 0.4); }
-            100% { transform: translateY(0px); }
+            transform: translateZ(30px);
         }
 
         .typewriter-text {
             font-size: 1.05rem;
             line-height: 1.7;
             color: #f1f1f1;
-            min-height: 100px; /* Prevents card jumping */
+            min-height: 100px; 
             margin-bottom: 20px;
+            transform: translateZ(40px);
         }
 
         .signature {
             font-family: 'Great Vibes', cursive;
             font-size: 2rem;
             color: #ff416c;
-            opacity: 0; /* Fades in via JS */
+            opacity: 0; 
             transition: opacity 1s ease;
+            transform: translateZ(30px);
         }
     </style>
 </head>
 <body>
 
+    <!-- The Custom Mouse Cursors -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-trail" id="trail"></div>
+
     <!-- Background Glowing Orbs -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
 
     <!-- Screen 1: The Intro Button -->
     <div id="intro-screen">
-        <button class="unwrap-btn" onclick="revealSurprise()">Tap to open your gift 🎁</button>
+        <button class="unwrap-btn" id="unwrap-btn" onclick="revealSurprise()">Tap to open your gift 🎁</button>
     </div>
 
-    <!-- Screen 2: The Main Animated Card -->
+    <!-- Screen 2: The Main 3D Card -->
     <div id="main-card">
         <h1>Happy Rakhi</h1>
-        <h2>Shambhavi</h2>
+        <h2>[Sister's Name]</h2>
         
-        <div class="photo-container">
-            <!-- *** REPLACE 'your-photo.jpg' WITH YOUR ACTUAL IMAGE FILENAME *** -->
-            <img class="photo" src="pic3.jpg" alt="Our Photo">
+        <!-- The Left-to-Right Image Slider -->
+        <div class="gallery-wrapper">
+            <div class="slider-track">
+                <!-- Replace these with your actual image filenames. You can add or remove <img> lines as needed! -->
+                <img src="img1.jpg" alt="Memory">
+                <img src="img2.jpg" alt="Memory">
+                <img src="img3.jpg" alt="Memory">
+                <img src="img4.jpg" alt="Memory">
+                <img src="img5.jpg" alt="Memory">
+                <img src="img6.jpg" alt="Memory">
+                <img src="img7.jpg" alt="Memory">
+                <img src="img8.jpg" alt="Memory">
+                <img src="img9.jpg" alt="Memory">
+                <img src="img10.jpg" alt="Memory">
+                <img src="img11.jpg" alt="Memory">
+                <img src="img12.jpg" alt="Memory">
+                <img src="img13.jpg" alt="Memory">
+                <img src="img14.jpg" alt="Memory">
+                <img src="img15.jpg" alt="Memory">
+            </div>
         </div>
         
         <!-- The message will automatically type itself here -->
         <div class="typewriter-text" id="message"></div>
         
-        <div class="signature" id="signature">Love, Vijay ❤️</div>
+        <div class="signature" id="signature">Love, [Your Name] ❤️</div>
     </div>
 
-    <!-- JavaScript to handle animations and typewriter effect -->
+    <!-- JavaScript for Cursors, 3D Hover, and Typewriter -->
     <script>
-        // The secret message
+        // --- 1. Custom Mouse Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        const trail = document.getElementById('trail');
+        const unwrapBtn = document.getElementById('unwrap-btn');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Trail follows with a slight delay
+            setTimeout(() => {
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+            }, 50);
+        });
+
+        // Make the cursor pulse when hovering over the unwrap button
+        unwrapBtn.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+            cursor.style.background = '#f9d423';
+        });
+        unwrapBtn.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.background = '#ff416c';
+        });
+
+
+        // --- 2. 3D Card Hover Effect ---
+        const card = document.getElementById('main-card');
+
+        card.addEventListener('mousemove', (e) => {
+            // Calculate mouse position relative to the center of the card
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            // Calculate rotation amounts (divide by a number to soften the effect)
+            const rotateX = -y / 15; 
+            const rotateY = x / 15;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        // Snap back to flat when mouse leaves the card
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        });
+
+
+        // --- 3. Reveal and Typewriter Logic ---
         const textToType = "Thank you for being my built-in best friend, my protector, and the most annoying person I love. I coded this just for you today. You mean the world to me!";
-        const speed = 50; // Typing speed in milliseconds
+        const speed = 50; 
         let i = 0;
 
         function revealSurprise() {
-            // 1. Hide the button
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
-            intro.style.transform = 'scale(0.8)';
             
             setTimeout(() => {
                 intro.style.display = 'none';
                 
-                // 2. Show the card with animation
-                const card = document.getElementById('main-card');
-                card.classList.add('show-card');
+                // Show card
+                card.style.display = 'block';
+                // Trigger a fade/slide up animation
+                card.animate([
+                    { opacity: 0, transform: 'perspective(1000px) translateY(50px) scale(0.9)' },
+                    { opacity: 1, transform: 'perspective(1000px) translateY(0) scale(1)' }
+                ], {
+                    duration: 1200,
+                    easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    fill: 'forwards'
+                });
                 
-                // 3. Start the typewriter effect after the card reveals
+                // Start typing
                 setTimeout(typeWriter, 1000);
-            }, 800); // Wait for fade out
+            }, 800); 
         }
 
         function typeWriter() {
@@ -218,7 +334,6 @@
                 i++;
                 setTimeout(typeWriter, speed);
             } else {
-                // Fade in the signature after typing finishes
                 document.getElementById("signature").style.opacity = '1';
             }
         }
